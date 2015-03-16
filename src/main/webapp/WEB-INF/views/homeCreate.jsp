@@ -8,7 +8,7 @@
 <title>HomePage | Create</title>
 </head>
 <body>
-<sf:form id="create" modelAttribute="homePage" action="/homepage" method="post">
+<sf:form id="create" modelAttribute="homePage" action="${pageContext.request.contextPath}/homepage" method="post">
 <table><tr>
 <td>Id:</td><td><sf:input path="id" id="id" type="text" size="10"/></td></tr>
 <tr><td>First Name:</td><td><sf:input path="firstname" id="firstname" type="text"/></td></tr>

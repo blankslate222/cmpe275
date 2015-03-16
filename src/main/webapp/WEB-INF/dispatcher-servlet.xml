@@ -21,6 +21,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 			<value>.jsp</value>
 		</property>
 	</bean>
+	<bean id="homePageDao" class="edu.sjsu.cmpe275.lab2.dao.HomePageDao"></bean>
 	
 	 <bean id="contentNegotiationManager"
              class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">

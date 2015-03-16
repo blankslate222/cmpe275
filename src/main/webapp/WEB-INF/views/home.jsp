@@ -10,14 +10,14 @@
 <body>
 <sf:form id="updDel" modelAttribute="homePage" action="/">
 <table><tr>
-<td>Id:</td><td><input name="id" type="text" size="10" value="${home.id}" readonly/></td></tr>
-<tr><td>First Name:</td><td><input name="firstName" type="text" value="${home.firstname}" /></td></tr>
-<tr><td>Last Name:</td><td><input name="lastName" type="text" value="${home.lastname}"/></td></tr>
-<tr><td>Email:</td><td><input name="email" type="email" value="${home.email}"/></td></tr>
-<tr><td>Address:</td><td><input name="address" type="text" value="${home.address}"/></td></tr>
-<tr><td>Organization:</td><td><input name="org" type="text" value="${home.organization}"/></td></tr>
-<tr><td>About Myself:</td><td><textarea name="about" cols="50" rows="5">
-${home.aboutMyself}</textarea></td></tr>
+<td>Id:</td><td><sf:input path="id" id="id" type="text" size="10" value="${id}" readonly/></td></tr>
+<tr><td>First Name:</td><td><sf:input path="firstname" id="firstname" type="text" value="${firstname}" /></td></tr>
+<tr><td>Last Name:</td><td><sf:input path="lastname" id="lastname" type="text" value="${lastname}"/></td></tr>
+<tr><td>Email:</td><td><sf:input path="email" id="email" type="email" value="${email}"/></td></tr>
+<tr><td>Address:</td><td><sf:input path="address" id="address" type="text" value="${address}"/></td></tr>
+<tr><td>Organization:</td><td><sf:input path="organization" id="organization" type="text" value="${organization}"/></td></tr>
+<tr><td>About Myself:</td><td><sf:textarea path="aboutMyself" id="aboutMyself" cols="50" rows="5">
+${aboutMyself}</sf:textarea></td></tr>
 <tr><td><input type="submit" id="delete" value="Delete" onclick="return submitform(this.id)"/></td> 
 	<td><input type="submit" id="update" value="Update" onclick="return submitform(this.id)"/></td></tr>
 </table>

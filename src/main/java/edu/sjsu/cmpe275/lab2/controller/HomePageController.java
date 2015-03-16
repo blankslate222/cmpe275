@@ -57,8 +57,11 @@ public class HomePageController {
 		return returnView;
 	}
 	
-	public String createOrUpdate(){
+	@RequestMapping(value = "/homepage", method = RequestMethod.POST)
+	public String createHomePage(Model model){
 		
-		return null;
+		return "home";
 	}
+	
+	public String  
 }

@@ -56,17 +56,19 @@ public class HomePageController {
 
 		if (null != userId) {
 			HomePage home = getHomePageService().findHomeById(userId);
-
-			if (home != null)
+			if (home != null){
 				model.addAttribute("homePage", home);
-			returnView = "home";
-			if (null != userId && mode.equals("true")) {
-				// return read only json view
+				returnView = "home";
+				
+				if (mode.equals("true")) {
+					// return read only json view
+				}
+			}else{
+				String errMsg = "User: " + userId;
+				model.addAttribute("message", errMsg);
+				returnView = "error";
 			}
-		} else {
-			String errMsg = "User: " + userId;
-			model.addAttribute("message", errMsg);
-			returnView = "error";
+				
 		}
 		return returnView;
 	}

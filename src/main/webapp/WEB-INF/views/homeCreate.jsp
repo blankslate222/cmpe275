@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +8,17 @@
 <title>HomePage | Create</title>
 </head>
 <body>
-<form id="create" action="/homepage" method="post">
+<sf:form id="create" modelAttribute="homePage" action="/homepage" method="post">
 <table><tr>
-<td>Id:</td><td><input name="id" type="text" size="10"/></td></tr>
-<tr><td>First Name:</td><td><input name="firstName" type="text"/></td></tr>
-<tr><td>Last Name:</td><td><input name="lastName" type="text"/></td></tr>
-<tr><td>Email:</td><td><input name="email" type="email"/></td></tr>
-<tr><td>Address:</td><td><input name="address" type="text"/></td></tr>
-<tr><td>Organization:</td><td><input name="org" type="text"/></td></tr>
-<tr><td>About Myself:</td><td><textarea name="about" cols="50" rows="5"></textarea></td></tr>
-<tr><td><input type="submit"  id="create" value="Create"/></td></tr>
+<td>Id:</td><td><sf:input path="id" id="id" type="text" size="10"/></td></tr>
+<tr><td>First Name:</td><td><sf:input path="firstname" id="firstname" type="text"/></td></tr>
+<tr><td>Last Name:</td><td><sf:input path="lastname" id="lastname" type="text"/></td></tr>
+<tr><td>Email:</td><td><sf:input path="email" id="email" type="email" /></td></tr>
+<tr><td>Address:</td><td><sf:input path="address" id="address" type="text"/></td></tr>
+<tr><td>Organization:</td><td><sf:input path="organization" id="organization" type="text"/></td></tr>
+<tr><td>About Myself:</td><td><sf:textarea path="aboutMyself" id="aboutMyself" cols="50" rows="5"></sf:textarea></td></tr>
+<tr><td><input type="submit" id="create" value="Create"/></td></tr>
 </table>
-</form>
+</sf:form>
 </body>
 </html>

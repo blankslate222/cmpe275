@@ -32,12 +32,6 @@ public class HomePageController {
 		return "welcome";
 	}
 
-//	@RequestMapping(value = "/homepage", method = RequestMethod.GET)
-//	public String displayForm(Model model) {
-//		model.addAttribute("homePage", new HomePage());
-//		return "homeCreate";
-//	}
-
 	@RequestMapping(value = "/homepage/{userId}", method = RequestMethod.GET)
 	public String displayHomePage(
 			@PathVariable String userId,
@@ -51,17 +45,31 @@ public class HomePageController {
 		} else if (null != userId && mode.equals("false")) {
 			model.addAttribute("homePage", getHomePageService().findHomeById(userId));
 			returnView = "home";
-		} else {
+		} else if (null != userId && mode.equals("true")){
 			//return read only json view
+		}else{
+			String errMsg = "User: "+userId;
+			model.addAttribute("message", errMsg);
+			returnView = "error";
 		}
 		return returnView;
 	}
 	
 	@RequestMapping(value = "/homepage", method = RequestMethod.POST)
-	public String createHomePage(Model model){
-		
-		return "home";
+	public String createOrUpdateHomePage(HomePage hp){
+		String retView = null;
+		String user = hp.getId();
+		HomePageDao dao =getHomePageService(); 
+		if(dao.findHomeById(user) != null){
+			dao.update(user, hp);
+			retView = "redirect:/homepage/"+user;
+		}
+		else if(getHomePageService().create(hp)){
+			retView = "redirect:/homepage/"+user;
+		}else{
+			retView = "badrequest";
+		}
+		return retView;
 	}
-	
-	public String  
+
 }

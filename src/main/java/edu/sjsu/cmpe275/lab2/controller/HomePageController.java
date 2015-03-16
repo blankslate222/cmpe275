@@ -65,7 +65,7 @@ public class HomePageController {
 				}
 			}else{
 				String errMsg = "User: " + userId;
-				model.addAttribute("message", errMsg);
+				model.addAttribute("error_message", errMsg);
 				returnView = "error";
 			}
 				

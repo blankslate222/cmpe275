@@ -8,6 +8,6 @@
 </head>
 <body>
 <h2> 404 - The requested page is not found</h2>
-Message : ${ error_message }
+${ error_message }
 </body>
 </html>

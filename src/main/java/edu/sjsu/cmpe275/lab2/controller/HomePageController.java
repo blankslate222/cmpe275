@@ -1,5 +1,11 @@
 package edu.sjsu.cmpe275.lab2.controller;
 
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.sjsu.cmpe275.lab2.dao.HomePageDao;
 import edu.sjsu.cmpe275.lab2.model.HomePage;
@@ -43,12 +50,9 @@ public class HomePageController {
 	}
 
 	@RequestMapping(value = "/homepage/{userId}", method = RequestMethod.GET)
-	public String displayHomePage(
-			@PathVariable String userId,
-			@RequestParam(value = "brief", required = false, defaultValue = "false") String mode,
-			Model model) {
+	public String displayHomePage(@PathVariable String userId, Model model,
+			@RequestParam(value = "brief", required=false) boolean brief) throws JsonGenerationException, JsonMappingException, IOException {
 		String returnView = null;
-
 		if (null == userId) {
 			model.addAttribute("homePage", new HomePage());
 			returnView = "homeCreate";
@@ -56,19 +60,22 @@ public class HomePageController {
 
 		if (null != userId) {
 			HomePage home = getHomePageService().findHomeById(userId);
-			if (home != null){
+			if (home != null) {
 				model.addAttribute("homePage", home);
 				returnView = "home";
-				
-				if (mode.equals("true")) {
-					// return read only json view
+				if(brief){
+				//	System.out.println("inside brief");
+					ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+					String json = ow.writeValueAsString(home);
+					model.addAttribute("jsonString",json);
+					returnView = "jsonview";
 				}
-			}else{
+			} else {
 				String errMsg = "User: " + userId;
 				model.addAttribute("error_message", errMsg);
 				returnView = "error";
 			}
-				
+
 		}
 		return returnView;
 	}
@@ -81,7 +88,7 @@ public class HomePageController {
 		String user = hp.getId();
 		HomePageDao dao = getHomePageService();
 		if (dao.findHomeById(user) != null) {
-			System.out.println("inside update");
+		//	System.out.println("inside update");
 			dao.update(user, hp);
 			retView = "redirect:/homepage/" + user;
 		} else if (getHomePageService().create(hp)) {

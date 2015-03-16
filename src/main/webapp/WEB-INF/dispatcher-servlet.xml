@@ -12,6 +12,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
  
 	<context:component-scan base-package="package edu.sjsu.cmpe275.lab2.controller" />
  	<mvc:annotation-driven />
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -23,19 +24,5 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	</bean>
 	<bean id="homePageDao" class="edu.sjsu.cmpe275.lab2.dao.HomePageDao"></bean>
 	
-	 <bean id="contentNegotiationManager"
-             class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-    <property name="favorPathExtension" value="false" />
-    <property name="favorParameter" value="true" />
-    <property name="parameterName" value="brief" />
-    <property name="ignoreAcceptHeader" value="true"/>
-    <property name="useJaf" value="false"/>
-    <property name="defaultContentType" value="application/json" />
- 
-    <property name="mediaTypes">
-        <map>
-            <entry key="true" value="application/json" />
-       </map>
-    </property>
-</bean>
+
 </beans>

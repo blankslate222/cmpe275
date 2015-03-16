@@ -7,7 +7,6 @@
 <title>Home Page</title>
 </head>
 <body>
-<h2> 404 - Not Found</h2>
-Sorry, the requested user with  ID ${ error_message } does not exist.
+${ jsonString }
 </body>
 </html>

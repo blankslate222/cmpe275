@@ -19,7 +19,8 @@ public class HomePageDao implements IHomePageDao{
 
 	public boolean update(String key, HomePage hp) {
 		boolean retVal = false;
-		if(db.put(key, hp) != null){
+		HomePage ret = db.put(key, hp);
+		if( ret != null){
 			retVal = true;			
 		}
 		return retVal;

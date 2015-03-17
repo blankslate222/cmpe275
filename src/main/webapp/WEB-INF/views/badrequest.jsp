@@ -7,6 +7,7 @@
 <title>Home Page</title>
 </head>
 <body>
+<h3>Homepage Service</h3>
 <h2> 400 - Bad request</h2>
 </body>
 </html>

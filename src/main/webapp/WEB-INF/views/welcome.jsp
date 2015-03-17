@@ -7,6 +7,7 @@
 <title>Home Page</title>
 </head>
 <body>
+<h3>Homepage Service</h3>
 <h2> My home page - Welcome</h2>
 Retrieved value from model = ${message}
 </body>

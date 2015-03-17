@@ -7,6 +7,7 @@
 <title>Home Page</title>
 </head>
 <body>
+<h3>Homepage Service</h3>
 <h2> 404 - Not Found</h2>
 Sorry, the requested user with  ID ${ error_message } does not exist.
 </body>

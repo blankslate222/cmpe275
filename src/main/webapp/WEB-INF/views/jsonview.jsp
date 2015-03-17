@@ -7,6 +7,9 @@
 <title>Home Page</title>
 </head>
 <body>
+<h3>Homepage Service</h3>
+<pre>
 ${ jsonString }
+</pre>
 </body>
 </html>

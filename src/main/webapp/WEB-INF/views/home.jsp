@@ -8,6 +8,7 @@
 <title>HomePage</title>
 </head>
 <body>
+<h3>Homepage Service</h3>
 	<sf:form id="updDel" modelAttribute="homePage" action="/">
 		<table>
 			<tr>
@@ -45,8 +46,8 @@
 				<td><input type="submit" id="update" value="Update"
 					onclick="return submitform(this.id)" /></td>
 			</tr>
-		<input type="hidden" id ="methodType" name="_method" value="" />
 		</table>
+		<input type="hidden" id ="methodType" name="_method" value="" />
 	</sf:form>
 
 	<script type="text/javascript">
@@ -66,7 +67,7 @@
 			if (operation == 'update') {
 				var action = "";
 				action += "${pageContext.request.contextPath}/homepage/"
-						+ "${home.id}";
+						+ "${homePage.id}";
 				var method = "post";
 
 				document.getElementById('updDel').action = action;

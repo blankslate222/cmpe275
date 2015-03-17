@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.sjsu.cmpe275.lab2.dao.HomePageDao;
 import edu.sjsu.cmpe275.lab2.model.HomePage;
@@ -51,7 +50,8 @@ public class HomePageController {
 
 	@RequestMapping(value = "/homepage/{userId}", method = RequestMethod.GET)
 	public String displayHomePage(@PathVariable String userId, Model model,
-			@RequestParam(value = "brief", required=false) boolean brief) throws JsonGenerationException, JsonMappingException, IOException {
+			@RequestParam(value = "brief", required = false) boolean brief)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		String returnView = null;
 		if (null == userId) {
 			model.addAttribute("homePage", new HomePage());
@@ -63,11 +63,12 @@ public class HomePageController {
 			if (home != null) {
 				model.addAttribute("homePage", home);
 				returnView = "home";
-				if(brief){
-				//	System.out.println("inside brief");
-					ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+				if (brief) {
+					// System.out.println("inside brief");
+					ObjectWriter ow = new ObjectMapper().writer()
+							.withDefaultPrettyPrinter();
 					String json = ow.writeValueAsString(home);
-					model.addAttribute("jsonString",json);
+					model.addAttribute("jsonString", json);
 					returnView = "jsonview";
 				}
 			} else {
@@ -80,19 +81,28 @@ public class HomePageController {
 		return returnView;
 	}
 
+	@RequestMapping(value = "/homepage/{userId}", method = RequestMethod.POST)
+	public String updateHomePage(
+			@ModelAttribute("homePage") HomePage hp, BindingResult result,
+			@PathVariable("userId") String userId, ModelMap model) {
+		String retView = null;
+		String user = userId;
+		retView = "redirect:/homepage/" + user;
+		if(getHomePageService().update(user, hp)) {
+			retView = "redirect:/homepage/" + user;
+		} else {
+			retView = "badrequest";
+		}
+		return retView;
+	}
+	
 	@RequestMapping(value = "/homepage", method = RequestMethod.POST)
-	public String createOrUpdateHomePage(
+	public String createHomePage(
 			@ModelAttribute("homePage") HomePage hp, BindingResult result,
 			ModelMap model) {
 		String retView = null;
 		String user = hp.getId();
-		HomePageDao dao = getHomePageService();
-		if (dao.findHomeById(user) != null) {
-		//	System.out.println("inside update");
-			dao.update(user, hp);
-			retView = "redirect:/homepage/" + user;
-		} else if (getHomePageService().create(hp)) {
-			System.out.println("inside create");
+		if (getHomePageService().create(hp)) {
 			retView = "redirect:/homepage/" + user;
 		} else {
 			retView = "badrequest";
@@ -101,20 +111,19 @@ public class HomePageController {
 	}
 
 	@RequestMapping(value = "/homepage/{userId}", method = RequestMethod.DELETE)
-	public String deleteHomePage(@PathVariable String userId, @ModelAttribute("homePage") HomePage hp,
-			ModelMap model){
+	public String deleteHomePage(@PathVariable String userId,
+			@ModelAttribute("homePage") HomePage hp, ModelMap model) {
 		System.out.println("Inside Delete Method");
 		String retView = null;
 		HomePageDao dao = getHomePageService();
 		if (dao.findHomeById(userId) != null) {
-		//	System.out.println("inside update");
 			dao.delete(userId);
 			retView = "redirect:/homepage";
-		}  else {
+		} else {
 			String errMsg = "User: " + userId;
 			model.addAttribute("error_message", errMsg);
 			retView = "error";
 		}
-		return retView;	
+		return retView;
 	}
 }

@@ -100,4 +100,21 @@ public class HomePageController {
 		return retView;
 	}
 
+	@RequestMapping(value = "/homepage/{userId}", method = RequestMethod.DELETE)
+	public String deleteHomePage(@PathVariable String userId, @ModelAttribute("homePage") HomePage hp,
+			ModelMap model){
+		System.out.println("Inside Delete Method");
+		String retView = null;
+		HomePageDao dao = getHomePageService();
+		if (dao.findHomeById(userId) != null) {
+		//	System.out.println("inside update");
+			dao.delete(userId);
+			retView = "redirect:/homepage";
+		}  else {
+			String errMsg = "User: " + userId;
+			model.addAttribute("error_message", errMsg);
+			retView = "error";
+		}
+		return retView;	
+	}
 }

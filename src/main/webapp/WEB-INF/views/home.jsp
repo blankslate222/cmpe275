@@ -45,6 +45,7 @@
 				<td><input type="submit" id="update" value="Update"
 					onclick="return submitform(this.id)" /></td>
 			</tr>
+		<input type="hidden" id ="methodType" name="_method" value="" />
 		</table>
 	</sf:form>
 
@@ -54,11 +55,11 @@
 			if (operation == 'delete') {
 
 				var action = "";
-				action += "${pageContext.request.contextPath}/homepage/"
-						+ "${home.id}";
-
+				action += "${pageContext.request.contextPath}/homepage/${homePage.id}";
+				alert(action);
 				document.getElementById('updDel').action = action;
-				document.getElementById('updDel').method = "delete";
+				/*document.getElementById('updDel').method = "delete";*/
+				document.getElementById("methodType").value = "DELETE";
 
 			}
 
